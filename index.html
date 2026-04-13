@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>glitching.today</title>
+    <link rel="icon" type="image/gif" href="/static/images/avatar.gif" />
+    <script type="module" crossorigin src="/assets/index-C71x2nej.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BC6WoYRz.css">
+  </head>
+  <body class="noise scanlines">
+    <!-- Splash -->
+    <div id="splash-screen">
+      <div class="boot-container">
+        <div class="boot-title">glitching.today</div>
+        <div class="boot-sequence" id="boot-sequence"></div>
+        <div class="boot-prompt" id="boot-prompt" style="display:none">
+          <button id="boot-btn" class="boot-btn">enter</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top bar -->
+    <div class="top-bar" id="top-bar" style="display:none">
+      <span class="top-bar-brand">glitching.today</span>
+      <div class="top-bar-right">
+        <span class="sys-clock" id="sys-clock">--:--:--</span>
+        <div class="lang-switcher">
+          <button data-lang="ru" class="lang-btn">RU</button>
+          <span class="lang-sep">·</span>
+          <button data-lang="en" class="lang-btn">EN</button>
+          <span class="lang-sep">·</span>
+          <button data-lang="fr" class="lang-btn">FR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main -->
+    <main class="main-layout" id="main-layout" style="display:none">
+      <aside class="sidebar" id="sidebar"></aside>
+      <section class="content" id="content"></section>
+    </main>
+
+    <audio id="bg-audio" loop preload="metadata"></audio>
+  </body>
+</html>

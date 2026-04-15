@@ -90,7 +90,7 @@ export const USER_CONFIG: UserConfig = {
     { name: "Minecraft", img: "https://upload.wikimedia.org/wikipedia/ru/f/f4/Minecraft_Cover_Art.png", tags: ["Casual", "Open to play", "Love it"] },
   ],
   gamesLike: [
-    { name: "Subnautica", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/264710/library_600x900_2x.jpg" },
+    { name: "Garry's Mod", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/4000/library_600x900_2x.jpg" },
     { name: "Entropy : Zero 2", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/1583720/library_600x900_2x.jpg" },
     { name: "Half-Life", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/70/library_600x900_2x.jpg" },
     { name: "Half-Life 2", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/220/library_600x900_2x.jpg" },

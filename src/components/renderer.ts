@@ -49,7 +49,6 @@ export function activityCardHTML(act: ActivityInfo): string {
 
     return `
       <div class="activity-card" data-activity-type="listening">
-        <div class="activity-card-header">Listening to ${act.appName}</div>
         <div class="activity-card-body">
           ${hasCover ? `<img class="activity-card-art" src="${act.coverUrl}" alt="cover" onerror="this.style.display='none'">` : ''}
           <div class="activity-card-info">
@@ -132,21 +131,21 @@ function renderGameGrid(games: Game[]): HTMLElement {
     img.src = g.img;
     img.alt = g.name;
     img.loading = 'lazy';
-    img.onerror = () => { (img as HTMLImageElement).src = USER_CONFIG.fallbackAvatar; (img as HTMLImageElement).style.filter = 'grayscale(1)'; };
+    img.onerror = () => { (img as HTMLImageElement).src = USER_CONFIG.fallbackImage; (img as HTMLImageElement).style.filter = 'grayscale(1)'; };
     c.appendChild(img);
     grid.appendChild(c);
   }
   return grid;
 }
 
-function renderRotationList(title: string, subtitle: string, games: Game[]): HTMLElement {
-  const wrap = card(title, subtitle, '');
+function renderRotationList(title: string, games: Game[]): HTMLElement {
+  const wrap = card(title, '', '');
   const list = el('div', 'rotation-list');
   for (const g of games) {
     const row = el('div', 'rotation-item');
     const tags = (g.tags || []).map((t) => `<span class="chip">${t}</span>`).join('');
     row.innerHTML = `
-      <img class="rotation-thumb" src="${g.img}" alt="${g.name}" loading="lazy" onerror="this.src='${USER_CONFIG.fallbackAvatar}';this.style.filter='grayscale(1)'">
+      <img class="rotation-thumb" src="${g.img}" alt="${g.name}" loading="lazy" onerror="this.src='${USER_CONFIG.fallbackImage}';this.style.filter='grayscale(1)'">
       <div><p class="rotation-name">${g.name}</p><div class="rotation-tags">${tags}</div></div>`;
     list.appendChild(row);
   }
@@ -154,14 +153,14 @@ function renderRotationList(title: string, subtitle: string, games: Game[]): HTM
   return wrap;
 }
 
-function renderFavGame(title: string, subtitle: string, lang: Lang): HTMLElement {
+function renderFavGame(title: string, lang: Lang): HTMLElement {
   const fav = USER_CONFIG.favoriteGame;
   const reason = lang === 'fr' ? fav.reasonFr : lang === 'en' ? fav.reasonEn : fav.reasonRu;
   const tags = (fav.tags || []).map((t) => `<span class="chip">${t}</span>`).join('');
-  const wrap = card(title, subtitle, '');
+  const wrap = card(title, '', '');
   wrap.querySelector('.widget-card-body')!.innerHTML = `
     <div class="fav-game">
-      <img class="fav-thumb" src="${fav.img}" alt="${fav.name}" loading="lazy" onerror="this.src='${USER_CONFIG.fallbackAvatar}';this.style.filter='grayscale(1)'">
+      <img class="fav-thumb" src="${fav.img}" alt="${fav.name}" loading="lazy" onerror="this.src='${USER_CONFIG.fallbackImage}';this.style.filter='grayscale(1)'">
       <div class="fav-info">
         <p class="fav-name">${fav.name}</p><p class="fav-reason">${reason}</p>
         <div class="fav-tags">${tags}</div>
@@ -179,7 +178,7 @@ function renderMediaGrid(items: MovieShow[]): HTMLElement {
     const img = document.createElement('img');
     img.className = 'game-thumb';
     img.src = m.img; img.alt = m.title; img.loading = 'lazy';
-    img.onerror = () => { (img as HTMLImageElement).src = USER_CONFIG.fallbackAvatar; (img as HTMLImageElement).style.filter = 'grayscale(1)'; };
+    img.onerror = () => { (img as HTMLImageElement).src = USER_CONFIG.fallbackImage; (img as HTMLImageElement).style.filter = 'grayscale(1)'; };
     c.appendChild(img);
     const overlay = el('div', 'media-overlay');
     overlay.innerHTML = `<span class="media-title">${m.title}</span>`;
@@ -250,22 +249,14 @@ export function renderSidebar(
           ${decoHtml}
           <img id="pfp-el" class="profile-avatar" src="${ds.avatarUrl}" alt="avatar">
         </div>
-        <h1 class="profile-handle">${USER_CONFIG.handle}</h1>
+        <h1 class="profile-handle">${ds.display_name}</h1>
+        <div style="font-size:13px;color:var(--text);margin-bottom:4px">${USER_CONFIG.bioText}</div>
         <div class="profile-status">
           <span class="presence-dot ${ds.status}" id="presence-dot"></span>
           <span id="status-text">${statusText}</span>
         </div>
       </div>
-      <div id="activity-container">${activityCardHTML(ds.activity)}</div>
-    </div>
-
-    <div class="card">
-      <div class="card-body" style="padding:14px 18px">
-        <div style="font-size:13px;color:var(--text);margin-bottom:4px">${USER_CONFIG.bioText}</div>
-        <div style="font-size:11px;color:var(--text-muted)">
-          <a target="_blank" href="${USER_CONFIG.bioUrl}" class="bio-url-link">${USER_CONFIG.bioUrl}</a>
-        </div>
-      </div>
+      <div id="activity-container">${activityCardHTML(ds.activity)}</div>      
     </div>
 
     <div class="card">
@@ -284,22 +275,20 @@ export function renderSidebar(
     <div class="card">
       <div class="card-header"><span class="card-title">${t.music}</span></div>
       <div class="card-body">
+          <div class="player-info">
+            <div class="player-song-title" id="song-title">${currentTrack?.title || ''}</div>
+            <div class="player-song-artist" id="song-artist">${currentTrack?.artist || ''}</div>
+            <div class="player-progress" id="progress-bar"><div class="player-progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+        <!--<select class="player-select" id="track-select">${trackOptions}</select>--!>
         <div class="player-controls">
           <button class="player-btn" id="btn-prev">${getIcon('skip-back')}</button>
           <button class="player-btn" id="btn-play">${getIcon(music.isPlaying() ? 'pause' : 'play')}</button>
           <button class="player-btn" id="btn-next">${getIcon('skip-forward')}</button>
           <button class="player-btn" id="btn-mute" style="margin-left:auto">${getIcon(music.isMuted() ? 'volume-x' : 'volume-2')}</button>
-        </div>
-        <div class="player-info">
-          <div class="player-song-title" id="song-title">${currentTrack?.title || ''}</div>
-          <div class="player-song-artist" id="song-artist">${currentTrack?.artist || ''}</div>
-        </div>
-        <select class="player-select" id="track-select">${trackOptions}</select>
-        <div class="player-volume">
-          <span class="volume-icon">${getIcon('volume-2')}</span>
           <input type="range" class="volume-slider" id="volume-control" min="0" max="0.3" step="0.005" value="0.05">
         </div>
-        <div class="player-progress" id="progress-bar"><div class="player-progress-fill" id="progress-fill"></div></div>
       </div>
     </div>
   `;
@@ -419,10 +408,10 @@ export function renderContent(content: HTMLElement, t: Translations, lang: Lang)
 
   const gamesTab = el('div', 'tab-content active');
   gamesTab.id = 'content-games';
-  gamesTab.appendChild(renderRotationList(t.rotationTitle, t.rotationSub, USER_CONFIG.gamesRotation));
-  gamesTab.appendChild(card(t.likeTitle, t.likeSub, renderGameGrid(USER_CONFIG.gamesLike)));
-  gamesTab.appendChild(renderFavGame(t.favTitle, t.favSub, lang));
-  gamesTab.appendChild(card(t.wishlistTitle, t.wishlistSub, renderGameGrid(USER_CONFIG.wantToPlay)));
+  gamesTab.appendChild(renderRotationList(t.rotationTitle, USER_CONFIG.gamesRotation));
+  gamesTab.appendChild(card(t.likeTitle, '', renderGameGrid(USER_CONFIG.gamesLike)));
+  gamesTab.appendChild(renderFavGame(t.favTitle, lang));
+  gamesTab.appendChild(card(t.wishlistTitle, '', renderGameGrid(USER_CONFIG.wantToPlay)));
   content.appendChild(gamesTab);
 
   const mediaTab = el('div', 'tab-content');

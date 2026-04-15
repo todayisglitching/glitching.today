@@ -9,6 +9,8 @@ import { USER_CONFIG } from '../data/config';
 
 interface DiscordUser {
   id: string;
+  display_name: string;
+  username: string;
   avatar: string | null;
   avatar_decoration_data?: { asset: string; sku_id: string } | null;
 }
@@ -70,6 +72,8 @@ export interface ActivityInfo {
 
 export interface DiscordState {
   status: Status;
+  display_name: string;
+  username: string;
   avatarUrl: string;
   avatarDecorationUrl: string | null;
   activity: ActivityInfo;
@@ -139,8 +143,14 @@ function parseSpotify(raw: SpotifyData): ActivityInfo {
 function parseRawData(data: RawData): DiscordState {
   const status: Status = (data.discord_status || 'offline') as Status;
 
+  // Display Name
+  let display_name = data.discord_user.display_name;
+  
+  // Username (tag)
+  let username = data.discord_user.username;
+
   // Avatar URL
-  let avatarUrl = USER_CONFIG.fallbackAvatar;
+  let avatarUrl = USER_CONFIG.fallbackImage;
   if (data.discord_user?.avatar && data.discord_user?.id) {
     const uid = data.discord_user.id;
     const hash = data.discord_user.avatar;
@@ -163,8 +173,8 @@ function parseRawData(data: RawData): DiscordState {
     const realActivities = (data.activities || []).filter((a) => a.type !== TYPE_CUSTOM);
     activity = realActivities[0] ? parseActivity(realActivities[0]) : { type: 'none', appName: '' };
   }
-
-  return { status, avatarUrl, avatarDecorationUrl: decorationUrl, activity };
+  console.debug(status, display_name, username, avatarUrl, decorationUrl, activity);
+  return { status, display_name, username, avatarUrl, avatarDecorationUrl: decorationUrl, activity };
 }
 
 // ---------- Public API ----------
@@ -172,7 +182,9 @@ function parseRawData(data: RawData): DiscordState {
 export function createDiscordSync() {
   let state: DiscordState = {
     status: 'offline',
-    avatarUrl: USER_CONFIG.fallbackAvatar,
+    display_name: 'loading...',
+    username: 'loading...',
+    avatarUrl: USER_CONFIG.fallbackImage,
     avatarDecorationUrl: null,
     activity: { type: 'none', appName: '' },
   };
@@ -215,6 +227,7 @@ export function createDiscordSync() {
     try {
       const res = await fetch(`https://api.lanyard.rest/v1/users/${USER_CONFIG.discordId}`);
       const json = await res.json();
+      console.debug(json.data);
       if (json.success && json.data) updateFromRaw(json.data);
     } catch { /* ignore */ }
   }

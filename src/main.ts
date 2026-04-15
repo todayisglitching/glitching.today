@@ -106,7 +106,13 @@ document.querySelectorAll('.lang-btn').forEach((btn) => {
 // ---------- Init ----------
 
 async function init(): Promise<void> {
-  createParticles(document.getElementById('particles')!);
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('particles');
+    if (container) {
+      createParticles(container);
+    }
+  });
+  console.debug(document.getElementById('particles'));
   await playBootSequence();
 
   currentLang = detectBrowserLanguage();

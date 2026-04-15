@@ -45,12 +45,9 @@ export interface SkillCategory {
 }
 
 export interface UserConfig {
-  handle: string;
-  userTag: string;
   bioText: string;
-  bioUrl: string;
   discordId: string;
-  fallbackAvatar: string;
+  fallbackImage: string;
   links: Link[];
   tracks: Track[];
   gamesRotation: Game[];
@@ -63,12 +60,11 @@ export interface UserConfig {
 }
 
 export const USER_CONFIG: UserConfig = {
-  handle: "hEllO, 1'm ev3ry)",
-  userTag: "@todayisglitching",
-  bioText: "Hello! I'm every / ❤️ have",
-  bioUrl: "https://glitching.today/",
+  bioText: `
+  Hello! I'm every / no luv...
+  `,
   discordId: "882580439162826753",
-  fallbackAvatar: "/static/images/avatar.gif",
+  fallbackImage: "/static/images/avatar.gif",
   links: [
     { name: "Discord", url: "https://discord.com/users/882580439162826753", icon: "message-square" },
     { name: "Telegram", url: "https://t.me/everyofflineuser", icon: "send" },

@@ -18,13 +18,9 @@ export interface Translations {
   music: string;
   boardTitle: string;
   rotationTitle: string;
-  rotationSub: string;
   likeTitle: string;
-  likeSub: string;
   favTitle: string;
-  favSub: string;
   wishlistTitle: string;
-  wishlistSub: string;
   mediaTitle: string;
   mediaSub: string;
   portfolioTitle: string;
@@ -50,13 +46,9 @@ export const TRANSLATIONS: Record<Lang, Translations> = {
     music: "Music",
     boardTitle: "Игры",
     rotationTitle: "В ротации",
-    rotationSub: "До 5 игр",
     likeTitle: "Нравятся",
-    likeSub: "До 20 игр",
     favTitle: "Любимая",
-    favSub: "1 игра",
     wishlistTitle: "Хочу поиграть",
-    wishlistSub: "До 20 игр",
     mediaTitle: "Фильмы и сериалы",
     mediaSub: "Просмотренное",
     portfolioTitle: "Портфолио",
@@ -80,13 +72,9 @@ export const TRANSLATIONS: Record<Lang, Translations> = {
     music: "Music",
     boardTitle: "Games",
     rotationTitle: "In rotation",
-    rotationSub: "Up to 5 games",
     likeTitle: "Games I like",
-    likeSub: "Up to 20 games",
     favTitle: "Favorite",
-    favSub: "1 game",
     wishlistTitle: "Want to play",
-    wishlistSub: "Up to 20 games",
     mediaTitle: "Movies & Series",
     mediaSub: "Watched",
     portfolioTitle: "Portfolio",
@@ -110,13 +98,9 @@ export const TRANSLATIONS: Record<Lang, Translations> = {
     music: "Musique",
     boardTitle: "Jeux",
     rotationTitle: "En rotation",
-    rotationSub: "Jusqu'\u00e0 5 jeux",
     likeTitle: "Jeux que j'aime",
-    likeSub: "Jusqu'\u00e0 20 jeux",
     favTitle: "Favori",
-    favSub: "1 jeu",
     wishlistTitle: "Je veux jouer",
-    wishlistSub: "Jusqu'\u00e0 20 jeux",
     mediaTitle: "Films et s\u00e9ries",
     mediaSub: "Vu",
     portfolioTitle: "Portfolio",

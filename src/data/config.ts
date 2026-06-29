@@ -53,7 +53,7 @@ export interface UserConfig {
 
 export const USER_CONFIG: UserConfig = {
   bioText: `
-  Hello! I'm every / no luv...
+  Hello! I'm every / I love my baby
   `,
   discordId: "882580439162826753",
   fallbackImage: "/static/images/avatar.gif",

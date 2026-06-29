@@ -36,13 +36,10 @@ function applyTheme(theme: 'dark' | 'light' | 'auto'): void {
   if (theme === 'auto') {
     const systemPref = getSystemThemePreference();
     html.setAttribute('data-theme', systemPref);
-    html.classList.remove('light-theme', 'dark-theme');
     localStorage.setItem('glitching.theme', 'auto');
     updateThemeIcon(systemPref);
   } else {
     html.setAttribute('data-theme', theme);
-    html.classList.remove('light-theme', 'dark-theme');
-    html.classList.add(`${theme}-theme`);
     localStorage.setItem('glitching.theme', theme);
     updateThemeIcon(theme);
   }
@@ -74,7 +71,9 @@ function initTheme(): void {
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
     const currentTheme = localStorage.getItem('glitching.theme');
     if (currentTheme === 'auto') {
-      applyTheme('auto');
+      const systemPref = e.matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', systemPref);
+      updateThemeIcon(systemPref);
     }
   });
 }

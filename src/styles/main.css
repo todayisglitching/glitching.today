@@ -1047,8 +1047,6 @@ body::before {
   padding: 6px 6px 0;
   margin-bottom: 24px;
   border-bottom: 1px solid var(--border);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .nav-tab {
@@ -1572,10 +1570,6 @@ body::before {
 @media (max-width: 960px) {
   .game-grid {
     grid-template-columns: repeat(3, 1fr);
-  }
-  .nav-tabs {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
   .nav-tab {
     font-size: 12px;

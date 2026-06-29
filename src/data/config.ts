@@ -4,13 +4,6 @@ export interface Link {
   icon: string;
 }
 
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  url: string;
-}
-
 export interface Game {
   name: string;
   img: string;
@@ -49,7 +42,6 @@ export interface UserConfig {
   discordId: string;
   fallbackImage: string;
   links: Link[];
-  tracks: Track[];
   gamesRotation: Game[];
   gamesLike: Game[];
   favoriteGame: FavoriteGame;
@@ -71,14 +63,6 @@ export const USER_CONFIG: UserConfig = {
     { name: "Bluesky", url: "https://bsky.app/profile/everyofflineuser.bsky.social", icon: "cloud" },
     { name: "Github", url: "https://github.com/todayisglitching", icon: "github" },
     { name: "Twitch", url: "https://twitch.tv/everyofflineuser", icon: "tv" },
-  ],
-  tracks: [
-    { id: "mirrors", title: "mirrors demo - happy version", artist: "SWOX, s0rrow", url: "/static/audio/song.mp3" },
-    { id: "check", title: "check", artist: "bbno$", url: "/static/audio/song1.flac" },
-    { id: "girls", title: "GIRLS", artist: "Chri$Tian Gate$", url: "/static/audio/song2.flac" },
-    { id: "menace", title: "menace", artist: "Mazie", url: "/static/audio/song3.flac" },
-    { id: "smellyjelly", title: "Smelly Jelly", artist: "Gezebelle Gaburgably", url: "/static/audio/song4.flac" },
-    { id: "thread", title: "Hanging by a Thread", artist: "Des Rocks", url: "/static/audio/song5.mp3" },
   ],
   gamesRotation: [
     { name: "Ena: Dream BBQ", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/2134320/library_600x900_2x.jpg", tags: ["Casual", "Love it"] },

@@ -15,7 +15,6 @@ export interface Translations {
   offline: string;
   unknown: string;
   sidebarLinks: string;
-  music: string;
   boardTitle: string;
   rotationTitle: string;
   likeTitle: string;
@@ -43,7 +42,6 @@ export const TRANSLATIONS: Record<Lang, Translations> = {
     offline: "Не в сети",
     unknown: "---",
     sidebarLinks: "Connections",
-    music: "Music",
     boardTitle: "Игры",
     rotationTitle: "В ротации",
     likeTitle: "Нравятся",
@@ -69,7 +67,6 @@ export const TRANSLATIONS: Record<Lang, Translations> = {
     offline: "Offline",
     unknown: "---",
     sidebarLinks: "Connections",
-    music: "Music",
     boardTitle: "Games",
     rotationTitle: "In rotation",
     likeTitle: "Games I like",
@@ -95,7 +92,6 @@ export const TRANSLATIONS: Record<Lang, Translations> = {
     offline: "Hors ligne",
     unknown: "---",
     sidebarLinks: "Connexions",
-    music: "Musique",
     boardTitle: "Jeux",
     rotationTitle: "En rotation",
     likeTitle: "Jeux que j'aime",

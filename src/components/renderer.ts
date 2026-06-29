@@ -231,16 +231,12 @@ function renderSkills(): HTMLElement {
 export function renderSidebar(
   sidebar: HTMLElement,
   t: Translations,
-  music: ReturnType<typeof import('./music').createMusicPlayer>,
   ds: DiscordState
 ): void {
   const statusText = statusLabel(ds.status, t);
   const decoHtml = ds.avatarDecorationUrl
     ? `<img class="avatar-decoration" src="${ds.avatarDecorationUrl}" alt="decoration">`
     : '';
-  const tracks = music.getTracks();
-  const trackOptions = tracks.map((tr) => `<option value="${tr.id}">${tr.title} — ${tr.artist}</option>`).join('');
-  const currentTrack = tracks[music.getCurrentIndex()];
 
   sidebar.innerHTML = `
     <div class="card profile-card">
@@ -271,29 +267,8 @@ export function renderSidebar(
         </div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header"><span class="card-title">${t.music}</span></div>
-      <div class="card-body">
-          <div class="player-info">
-            <div class="player-song-title" id="song-title">${currentTrack?.title || ''}</div>
-            <div class="player-song-artist" id="song-artist">${currentTrack?.artist || ''}</div>
-            <div class="player-progress" id="progress-bar"><div class="player-progress-fill" id="progress-fill"></div>
-          </div>
-        </div>
-        <!--<select class="player-select" id="track-select">${trackOptions}</select>--!>
-        <div class="player-controls">
-          <button class="player-btn" id="btn-prev">${getIcon('skip-back')}</button>
-          <button class="player-btn" id="btn-play">${getIcon(music.isPlaying() ? 'pause' : 'play')}</button>
-          <button class="player-btn" id="btn-next">${getIcon('skip-forward')}</button>
-          <button class="player-btn" id="btn-mute" style="margin-left:auto">${getIcon(music.isMuted() ? 'volume-x' : 'volume-2')}</button>
-          <input type="range" class="volume-slider" id="volume-control" min="0" max="0.3" step="0.005" value="0.05">
-        </div>
-      </div>
-    </div>
   `;
 
-  bindMusicEvents(music);
   if (ds.activity.type === 'listening' && ds.activity.elapsed !== undefined) startProgressTicker();
   else stopProgressTicker();
 }
@@ -353,34 +328,6 @@ export function updateSidebar(ds: DiscordState, t: Translations): void {
 
 export function resetUpdateCache(): void {
   prev = { status: '', avatar: '', decoration: '', activityKey: '' };
-}
-
-// ============================================================
-// Music events
-// ============================================================
-
-function bindMusicEvents(
-  music: ReturnType<typeof import('./music').createMusicPlayer>
-): void {
-  const btnPrev = document.getElementById('btn-prev');
-  const btnPlay = document.getElementById('btn-play');
-  const btnNext = document.getElementById('btn-next');
-  const btnMute = document.getElementById('btn-mute');
-  const trackSelect = document.getElementById('track-select') as HTMLSelectElement;
-  const volumeSlider = document.getElementById('volume-control') as HTMLInputElement;
-
-  btnPrev?.addEventListener('click', () => { music.prev(); });
-  btnPlay?.addEventListener('click', () => { music.togglePlay(); });
-  btnNext?.addEventListener('click', () => { music.next(); });
-  btnMute?.addEventListener('click', () => { music.toggleMute(); });
-  trackSelect?.addEventListener('change', () => { music.selectTrack(trackSelect.value); });
-  if (volumeSlider) {
-    volumeSlider.oninput = () => {
-      const audio = document.getElementById('bg-audio') as HTMLAudioElement;
-      audio.volume = Number(volumeSlider.value);
-      if (audio.muted && audio.volume > 0) audio.muted = false;
-    };
-  }
 }
 
 // ============================================================

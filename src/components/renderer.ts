@@ -321,8 +321,8 @@ export function updateSidebar(ds: DiscordState, t: Translations): void {
     const container = document.getElementById('activity-container');
     if (container) container.innerHTML = activityCardHTML(act);
     prev.activityKey = actKey;
+    stopProgressTicker(); // Always stop before starting to reset timer
     if (act.type === 'listening' && act.elapsed !== undefined) startProgressTicker();
-    else stopProgressTicker();
   }
 }
 

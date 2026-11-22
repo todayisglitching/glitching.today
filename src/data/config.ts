@@ -13,7 +13,6 @@ export interface Game {
 export interface FavoriteGame extends Game {
   reasonRu: string;
   reasonEn: string;
-  reasonFr: string;
 }
 
 export interface MovieShow {
@@ -38,6 +37,8 @@ export interface SkillCategory {
 }
 
 export interface UserConfig {
+  name: string;
+  handles: string[];
   bioText: string;
   discordId: string;
   fallbackImage: string;
@@ -52,11 +53,13 @@ export interface UserConfig {
 }
 
 export const USER_CONFIG: UserConfig = {
+  name: "Алексей Волков",
+  handles: ["todayisglitching", "everyofflineuser"],
   bioText: `
   Hello! I'm every / I love my baby
   `,
   discordId: "882580439162826753",
-  fallbackImage: "/static/images/avatar.gif",
+  fallbackImage: "/static/images/avatar.png",
   links: [
     { name: "Discord", url: "https://discord.com/users/882580439162826753", icon: "message-square" },
     { name: "Telegram", url: "https://t.me/everyofflineuser", icon: "send" },
@@ -81,9 +84,8 @@ export const USER_CONFIG: UserConfig = {
   favoriteGame: {
     name: "Abiotic Factor",
     img: "https://cdn.cloudflare.steamstatic.com/steam/apps/427410/library_600x900_2x.jpg",
-    reasonRu: "Потому что ее прошел хумас",
+    reasonRu: "Потому что её прошёл хумас",
     reasonEn: "Because NikeTheHuman passed it",
-    reasonFr: "Parce que NikeTheHuman l'a réussi",
     tags: ["Intermediate", "Open to play", "Obsessed"],
   },
   wantToPlay: [
